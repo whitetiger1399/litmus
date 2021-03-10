@@ -2,7 +2,6 @@
 import { useQuery } from '@apollo/client';
 import { Typography } from '@material-ui/core';
 import useTheme from '@material-ui/core/styles/useTheme';
-import { DateValue, GraphMetric, LineAreaGraph } from 'litmus-ui';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Loader from '../../../components/Loader';
@@ -18,6 +17,11 @@ import {
   promQueryInput,
 } from '../../../models/graphql/prometheus';
 import { RootState } from '../../../redux/reducers';
+import {
+  DateValue,
+  GraphMetric,
+  LineAreaGraph,
+} from '../../kuig-lab/Graphs/LineAreaGraph';
 import useStyles from './styles';
 
 interface PrometheusQueryDataInterface {
@@ -141,7 +145,7 @@ const PanelContent: React.FC<PanelResponse> = ({
     prometheusData.GetPromQuery[0].legends[0] !== null
   ) {
     seriesData = prometheusData.GetPromQuery[0].legends.map((elem, index) => ({
-      metricName: elem[0] ?? 'test',
+      metricName: elem[0] ?? ' ',
       data: prometheusData.GetPromQuery[0].tsvs[index].map((dataPoint) => ({
         date: parseInt(dataPoint.timestamp ?? '0', 10) * 1000,
         value: parseFloat(dataPoint.value ?? '0.0'),
@@ -150,7 +154,7 @@ const PanelContent: React.FC<PanelResponse> = ({
     }));
   }
 
-  let eventData: Array<GraphMetric> = [
+  let eventSeriesMetrics: Array<GraphMetric> = [
     { metricName: '', data: [{ date: NaN, value: NaN }] },
   ];
   if (
@@ -163,14 +167,17 @@ const PanelContent: React.FC<PanelResponse> = ({
     prometheusData.GetPromQuery.forEach((queryResponse) => {
       if (prometheusQueryData.chaosInput.includes(queryResponse.queryid)) {
         if (queryResponse.legends && queryResponse.legends[0]) {
-          eventData = queryResponse.legends.map((elem, index) => ({
-            metricName: elem[0] ?? 'test',
-            data: queryResponse.tsvs[index].map((dataPoint) => ({
-              date: parseInt(dataPoint.timestamp ?? '0', 10) * 1000,
-              value: parseFloat(dataPoint.value ?? '0.0'),
-            })),
-            baseColor: 'red',
-          }));
+          eventSeriesMetrics = queryResponse.legends.map((elem, index) => {
+            console.log('queryRespon', queryResponse.tsvs[index]);
+            return {
+              metricName: elem[0] ?? ' ',
+              data: queryResponse.tsvs[index].map((dataPoint) => ({
+                date: parseInt(dataPoint.timestamp ?? '0', 10) * 1000,
+                value: parseInt(dataPoint.value ?? '0', 10),
+              })),
+              baseColor: 'red',
+            };
+          });
         }
       }
     });
@@ -184,7 +191,7 @@ const PanelContent: React.FC<PanelResponse> = ({
       </div>
     );
   }
-
+  // console.log('EventSeries', eventSeriesMetrics);
   return (
     <div className={classes.rootPanel}>
       <div>
@@ -212,7 +219,7 @@ const PanelContent: React.FC<PanelResponse> = ({
           <LineAreaGraph
             legendTableHeight={120}
             openSeries={filterUndefinedData(seriesData)}
-            eventSeries={filterUndefinedData(eventData)}
+            eventSeries={filterUndefinedData(eventSeriesMetrics)}
             showPoints={false}
             showLegendTable
             showTips
