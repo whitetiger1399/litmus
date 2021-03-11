@@ -195,6 +195,7 @@ const PanelContent: React.FC<PanelResponse> = ({
             eventSeries={eventData}
             showPoints={false}
             showLegendTable
+            showEventMarkers
             showTips
             unit={unit}
             yLabel={y_axis_left}
