@@ -17,7 +17,9 @@ interface DashboardPanelGroupContentProps {
   selectedPanels?: string[];
   selectedApplications?: string[];
   centralBrushPosition?: BrushPostitionProps;
-  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
+  handleCentralBrushPosition: (newBrushPosition: BrushPostitionProps) => void;
+  centralAllowGraphUpdate: boolean;
+  handleCentralAllowGraphUpdate: (value: boolean) => void;
 }
 
 const DashboardPanelGroupContent: React.FC<DashboardPanelGroupContentProps> = ({
@@ -28,6 +30,8 @@ const DashboardPanelGroupContent: React.FC<DashboardPanelGroupContentProps> = ({
   selectedApplications,
   centralBrushPosition,
   handleCentralBrushPosition,
+  centralAllowGraphUpdate,
+  handleCentralAllowGraphUpdate,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(true);
@@ -59,6 +63,8 @@ const DashboardPanelGroupContent: React.FC<DashboardPanelGroupContentProps> = ({
               .map((panel: PanelResponse) => (
                 <GraphPanel
                   key={panel.panel_id}
+                  centralAllowGraphUpdate={centralAllowGraphUpdate}
+                  handleCentralAllowGraphUpdate={handleCentralAllowGraphUpdate}
                   centralBrushPosition={centralBrushPosition}
                   handleCentralBrushPosition={handleCentralBrushPosition}
                   data-cy="dashboardPanel"

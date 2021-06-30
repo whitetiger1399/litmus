@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ApolloError, useQuery } from '@apollo/client';
 import { IconButton, Typography } from '@material-ui/core';
 import useTheme from '@material-ui/core/styles/useTheme';
@@ -61,6 +62,8 @@ const PanelContent: React.FC<GraphPanelProps> = ({
   selectedApplications,
   centralBrushPosition,
   handleCentralBrushPosition,
+  centralAllowGraphUpdate,
+  handleCentralAllowGraphUpdate,
 }) => {
   const { palette } = useTheme();
   const classes = useStyles();
@@ -379,6 +382,8 @@ const PanelContent: React.FC<GraphPanelProps> = ({
       </div>
       <div className={classes.singleGraph}>
         <LineAreaGraph
+          centralAllowGraphUpdate={centralAllowGraphUpdate}
+          handleCentralAllowGraphUpdate={handleCentralAllowGraphUpdate}
           centralBrushPosition={centralBrushPosition}
           handleCentralBrushPosition={handleCentralBrushPosition}
           legendTableHeight={120}

@@ -1,7 +1,7 @@
-import { ParentSize } from "@visx/visx";
-import React from "react";
-import { BarStackProps } from "./base";
-import { FilteredStackBar } from "./FilteredStackBar";
+import { ParentSize } from '@visx/visx';
+import React from 'react';
+import { BarStackProps } from './base';
+import { FilteredStackBar } from './FilteredStackBar';
 
 const StackBar: React.FC<BarStackProps> = ({ ...rest }) => {
   return (

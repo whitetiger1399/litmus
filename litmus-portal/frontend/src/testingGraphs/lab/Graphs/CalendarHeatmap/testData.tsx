@@ -1,13 +1,13 @@
-import React from "react";
-import { CalendarHeatmapTooltipProps } from ".";
-import { WeekData } from "./base";
+import React from 'react';
+import { CalendarHeatmapTooltipProps } from '.';
+import { WeekData } from './base';
 
 const TestCalendarHeatmapTooltip = ({
   tooltipData,
 }: CalendarHeatmapTooltipProps): React.ReactElement => {
   return (
     <div>
-      <div style={{ marginBottom: "0.2rem" }}>
+      <div style={{ marginBottom: '0.2rem' }}>
         {tooltipData?.data?.bin?.bin.value}% Average Resiliency
       </div>
       <div>{tooltipData?.data?.bin?.bin.workflowCount} runs</div>

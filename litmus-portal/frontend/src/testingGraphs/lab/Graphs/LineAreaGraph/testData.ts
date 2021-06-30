@@ -1,4 +1,4 @@
-import { DateValue, GraphMetric } from "../../Graphs/LineAreaGraph";
+import { DateValue, GraphMetric } from '.';
 
 const openSeriesData1: DateValue[] = [
   { date: 4000.0, value: 40 },
@@ -52,38 +52,38 @@ const eventSeriesData2: DateValue[] = [
 ];
 const openSeriesData: Array<GraphMetric> = [
   {
-    metricName: "teal",
+    metricName: 'teal',
     data: openSeriesData1,
-    baseColor: "teal",
+    baseColor: 'teal',
   },
 ];
 const closedSeriesData: Array<GraphMetric> = [
-  { metricName: "orange", data: closedSeriesData1, baseColor: "orange" },
-  { metricName: "noColorAssigned-1", data: closedSeriesData2 },
+  { metricName: 'orange', data: closedSeriesData1, baseColor: 'orange' },
+  { metricName: 'noColorAssigned-1', data: closedSeriesData2 },
 ];
 const eventSeriesData: Array<GraphMetric> = [
   {
-    metricName: "chaos-pod-delete-no-color",
+    metricName: 'chaos-pod-delete-no-color',
     data: eventSeriesData1,
     subData: [
-      { subDataName: "subData-0-1", value: "0-1", date: 3000 },
-      { subDataName: "subData-0-2", value: "0-2", date: 3000 },
-      { subDataName: "subData-0-3", value: "0-3", date: 3000 },
-      { subDataName: "subData-0-4", value: "0-4", date: 3000 },
+      { subDataName: 'subData-0-1', value: '0-1', date: 3000 },
+      { subDataName: 'subData-0-2', value: '0-2', date: 3000 },
+      { subDataName: 'subData-0-3', value: '0-3', date: 3000 },
+      { subDataName: 'subData-0-4', value: '0-4', date: 3000 },
     ],
   },
   {
-    metricName: "chaos-network-pod",
+    metricName: 'chaos-network-pod',
     data: eventSeriesData2,
     subData: [
-      { subDataName: "subData-1-1", value: "1-1", date: 5000 },
-      { subDataName: "subData-1-2", value: "1-2", date: 5000 },
-      { subDataName: "subData-2-1", value: "2-1", date: 11000 },
-      { subDataName: "subData-2-2", value: "2-2", date: 11000 },
-      { subDataName: "subData-2-3", value: "2-3", date: 11000 },
-      { subDataName: "subData-2-4", value: "2-4", date: 11000 },
+      { subDataName: 'subData-1-1', value: '1-1', date: 5000 },
+      { subDataName: 'subData-1-2', value: '1-2', date: 5000 },
+      { subDataName: 'subData-2-1', value: '2-1', date: 11000 },
+      { subDataName: 'subData-2-2', value: '2-2', date: 11000 },
+      { subDataName: 'subData-2-3', value: '2-3', date: 11000 },
+      { subDataName: 'subData-2-4', value: '2-4', date: 11000 },
     ],
-    baseColor: "blue",
+    baseColor: 'blue',
   },
 ];
 

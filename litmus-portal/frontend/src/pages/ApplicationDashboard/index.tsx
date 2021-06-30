@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from '@apollo/client';
 import { IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
@@ -27,7 +28,7 @@ import useActions from '../../redux/actions';
 import * as DashboardActions from '../../redux/actions/dashboards';
 import * as DataSourceActions from '../../redux/actions/dataSource';
 import { RootState } from '../../redux/reducers';
-import { BrushPostitionProps } from '../../testingGraphs/lab/Graphs/LineAreaGraph';
+import { BrushPostitionProps } from '../../testingGraphs/lab/Graphs/LineAreaGraph/base';
 import { getProjectID } from '../../utils/getSearchParams';
 import ChaosAccordion from '../../views/Analytics/ApplicationDashboard/ChaosAccordion';
 import DataSourceInactiveModal from '../../views/Analytics/ApplicationDashboard/DataSourceInactiveModal';
@@ -81,6 +82,8 @@ const DashboardPage: React.FC = () => {
   };
   const [centralBrushPosition, setCentralBrushPosition] =
     React.useState<BrushPostitionProps>();
+  const [centralAllowGraphUpdate, setCentralAllowGraphUpdate] =
+    React.useState(true);
   const [isInfoOpen, setIsInfoOpen] = React.useState<Boolean>(false);
   const [selectedPanels, setSelectedPanels] = React.useState<string[]>([]);
   const [selectedApplications, setSelectedApplications] = React.useState<
@@ -197,7 +200,6 @@ const DashboardPage: React.FC = () => {
       }
     }
   }, [selectedDashboardInformation.dashboardKey, dataSources]);
-
   return (
     <Scaffold>
       <div className={classes.rootContainer}>
@@ -339,6 +341,10 @@ const DashboardPage: React.FC = () => {
                     data-cy="dashboardPanelGroup"
                   >
                     <DashboardPanelGroup
+                      centralAllowGraphUpdate={centralAllowGraphUpdate}
+                      handleCentralAllowGraphUpdate={(value: boolean) =>
+                        setCentralAllowGraphUpdate(value)
+                      }
                       centralBrushPosition={centralBrushPosition}
                       handleCentralBrushPosition={(
                         newBrushPosition: BrushPostitionProps

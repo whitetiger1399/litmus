@@ -1,8 +1,8 @@
-import { useTheme } from "@material-ui/core";
-import { Arc, Group, ParentSize } from "@visx/visx";
-import React from "react";
-import { RadialChartMetric, RadialGraphProps } from "../base";
-import { useStyles } from "./styles";
+import { useTheme } from '@material-ui/core';
+import { Arc, Group, ParentSize } from '@visx/visx';
+import React from 'react';
+import { RadialChartMetric, RadialGraphProps } from '../base';
+import { useStyles } from './styles';
 
 export interface RadialProgressChartProps extends RadialGraphProps {
   // Object of RadialChartMetric data for plotting the chart
@@ -35,16 +35,16 @@ const RadialProgressChartChild = ({
   iconTop,
   arcWidth = 20,
   semiCircle = false,
-  iconSize = "3rem",
+  iconSize = '3rem',
   heading,
   unit,
   imageSrc,
-  imageAlt = "icon",
+  imageAlt = 'icon',
   className,
 }: RadialProgressChartChildProps) => {
   const { palette } = useTheme();
-  let centerValue = "0";
-  const centerText = heading ?? "";
+  let centerValue = '0';
+  const centerText = heading ?? '';
   const radialFigurWidth = width;
   const circleOrient = semiCircle ? 1 : 2;
   const startAngle: number = -(Math.PI / 2);
@@ -82,13 +82,13 @@ const RadialProgressChartChild = ({
         },
         {
           value: (total ? (total - radialData.value) / total : 0) * scalerArc,
-          label: "rest",
+          label: 'rest',
           baseColor: palette.disabledBackground,
         },
       ]
     : [{ value: NaN }];
 
-  if (centerValue === "0" && total > 0) {
+  if (centerValue === '0' && total > 0) {
     {
       centerValue = radialData.value.toString();
     }
@@ -142,7 +142,7 @@ const RadialProgressChartChild = ({
       </div>
       <div className={classes.centerDataContainer}>
         <div className={`${classes.centerValue} ${classes.centerDataFont}`}>
-          {centerValue + " " + unit}
+          {`${centerValue} ${unit}`}
         </div>
         {centerText && (
           <div className={`${classes.centerText} ${classes.centerDataFont}`}>

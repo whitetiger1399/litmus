@@ -1,7 +1,7 @@
-import { Typography } from "@material-ui/core";
-import { ParentSize } from "@visx/visx";
-import React from "react";
-import { useStyles } from "./styles";
+import { Typography } from '@material-ui/core';
+import { ParentSize } from '@visx/visx';
+import React from 'react';
+import { useStyles } from './styles';
 
 export interface PassFailBarProps {
   // Pass percentage value as number
@@ -44,7 +44,7 @@ const PassFailBarChild = ({
           className={`${classes.passText} ${classes.text}`}
         >{`${passPercentage ?? 0}%`}</Typography>
       </div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: 'flex' }}>
         <div className={`${classes.singleBar} ${classes.failBar} `} />
         <Typography
           variant="h6"

@@ -1,9 +1,9 @@
-import { RadialChartMetric } from "../base";
+import { RadialChartMetric } from '../base';
 
 const testRadialProgressChartData: RadialChartMetric = {
   value: 60,
-  label: "pass",
-  baseColor: "orange",
+  label: 'pass',
+  baseColor: 'orange',
 };
 
 export { testRadialProgressChartData };

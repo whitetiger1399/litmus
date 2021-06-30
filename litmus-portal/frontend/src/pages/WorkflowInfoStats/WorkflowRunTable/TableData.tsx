@@ -52,30 +52,27 @@ const TableData: React.FC<TableDataProps> = ({ data }) => {
       </StyledTableCell>
 
       <StyledTableCell>
-          <Typography className={classes.reliabilityDataTypography}>
-            {data.test_weight} Points
-          </Typography>
-          <div className={classes.progressBar}>
-            <AnalyticsLinearProgressBar
-              value={data.test_weight ?? 0}
-              maxValue={10}
-              isInTable
-            />
-          </div>
-      </StyledTableCell>
-
-      <StyledTableCell>
-        
-          <Typography>{data.resulting_points} Points</Typography>
-          <div className={classes.progressBar}>
-            <LinearProgressBar width={0.2} value={data.resulting_points ?? 0} />
-          </div>
-      </StyledTableCell>
-
-      <StyledTableCell>
-        <Typography>
-          {formatDate(data.last_run)}
+        <Typography className={classes.reliabilityDataTypography}>
+          {data.test_weight} Points
         </Typography>
+        <div className={classes.progressBar}>
+          <AnalyticsLinearProgressBar
+            value={data.test_weight ?? 0}
+            maxValue={10}
+            isInTable
+          />
+        </div>
+      </StyledTableCell>
+
+      <StyledTableCell>
+        <Typography>{data.resulting_points} Points</Typography>
+        <div className={classes.progressBar}>
+          <LinearProgressBar width={0.2} value={data.resulting_points ?? 0} />
+        </div>
+      </StyledTableCell>
+
+      <StyledTableCell>
+        <Typography>{formatDate(data.last_run)}</Typography>
       </StyledTableCell>
     </>
   );

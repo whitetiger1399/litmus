@@ -1,4 +1,4 @@
-import { Typography, useTheme } from "@material-ui/core";
+import { Typography, useTheme } from '@material-ui/core';
 import {
   AxisLeft,
   Group,
@@ -6,17 +6,17 @@ import {
   scaleLinear,
   Tooltip,
   useTooltip,
-} from "@visx/visx";
-import React, { useCallback, useState } from "react";
+} from '@visx/visx';
+import React, { useCallback, useState } from 'react';
 import {
   CalendarHeatMapChildProps,
   CalendarHeatmapTooltipProps,
   DayData,
   ToolTipValue,
   WeekData,
-} from "./base";
-import { useStyles } from "./styles";
-import { dayList, getColorIndex, monthList } from "./utils";
+} from './base';
+import { useStyles } from './styles';
+import { dayList, getColorIndex, monthList } from './utils';
 
 function max<Datum>(data: Datum[], value: (d: Datum) => number): number {
   return Math.max(...data.map(value));
@@ -37,7 +37,7 @@ const ChildCalendarHeatmap = ({
   CalendarHeatmapTooltip = ({ tooltipData }: CalendarHeatmapTooltipProps) => {
     return (
       <div>
-        <div style={{ marginBottom: "0.2rem" }}>
+        <div style={{ marginBottom: '0.2rem' }}>
           {tooltipData?.data?.bin?.bin.value}
         </div>
         <div>{tooltipData?.data?.bin?.bin.workflowCount}</div>
@@ -58,8 +58,8 @@ const ChildCalendarHeatmap = ({
   } = useTooltip<ToolTipValue>({
     tooltipOpen: true,
   });
-  const [currentSelectedBin, setCurrentSelectedBin] = useState<string>("");
-  const [currentSelectedColor, setCurrentSelectedColor] = useState<string>("");
+  const [currentSelectedBin, setCurrentSelectedBin] = useState<string>('');
+  const [currentSelectedColor, setCurrentSelectedColor] = useState<string>('');
   const minValue = 0;
   const maxValue = 100;
 
@@ -85,13 +85,13 @@ const ChildCalendarHeatmap = ({
   yScale.range([yMax, 0]);
 
   const axisLeftTickLabelProps = {
-    dy: "0.3rem",
-    dx: "-0.3rem",
+    dy: '0.3rem',
+    dx: '-0.3rem',
     color: palette.text.primary,
     fontWeight: 400,
-    fontSize: "0.75rem",
-    lineHeight: "1.275rem",
-    textAnchor: "end" as const,
+    fontSize: '0.75rem',
+    lineHeight: '1.275rem',
+    textAnchor: 'end' as const,
     fill: palette.text.hint,
   };
 
@@ -100,11 +100,11 @@ const ChildCalendarHeatmap = ({
   const handleTooltip = useCallback(
     (event: React.MouseEvent<SVGRectElement>, bin: any) => {
       let pointerDataSelection: ToolTipValue = { data: { value: NaN } };
-      const x = bin.x;
+      const { x } = bin;
       const y = yMax - bin.y;
       pointerDataSelection = {
         data: {
-          bin: bin,
+          bin,
         },
       };
 
@@ -157,7 +157,7 @@ const ChildCalendarHeatmap = ({
           <defs>
             <filter id="inset" x="-50%" y="-50%" width="200%" height="200%">
               <feFlood
-                floodColor={currentSelectedColor ?? "red"}
+                floodColor={currentSelectedColor ?? 'red'}
                 result="outside-color"
               />
               <feMorphology in="SourceAlpha" operator="dilate" radius="1" />
@@ -212,14 +212,14 @@ const ChildCalendarHeatmap = ({
                         bin.count <= maxValue
                         ? colorRange[
                             getColorIndex(bin.count, valueThreshold)
-                          ] ?? "lightGrey"
+                          ] ?? 'lightGrey'
                         : palette.graph.calendarHeatmap[10]
                       : colorRange[
                           getColorIndex(bin.count ?? 0, valueThreshold)
-                        ] ?? "lightGrey";
+                        ] ?? 'lightGrey';
                   return (
                     bin &&
-                    typeof bin.count === "number" &&
+                    typeof bin.count === 'number' &&
                     (bin.count > -1 || !bin.count) && (
                       <rect
                         onMouseEnter={(event) => handleTooltip(event, bin)}
@@ -234,14 +234,14 @@ const ChildCalendarHeatmap = ({
                         filter={
                           currentSelectedBin ===
                           `heatmap-rect-id-${bin.row}-${bin.column}`
-                            ? "url(#inset)"
-                            : ""
+                            ? 'url(#inset)'
+                            : ''
                         }
                         fillOpacity={
                           currentSelectedBin ===
                           `heatmap-rect-id-${bin.row}-${bin.column}`
                             ? 1
-                            : currentSelectedBin === ""
+                            : currentSelectedBin === ''
                             ? 1
                             : 0.45
                         }
@@ -252,18 +252,18 @@ const ChildCalendarHeatmap = ({
                             `heatmap-rect-id-${bin.row}-${bin.column}`
                           ) {
                             setCurrentSelectedBin(
-                              e.currentTarget.getAttribute("id")?.toString() ??
-                                ""
+                              e.currentTarget.getAttribute('id')?.toString() ??
+                                ''
                             );
                             setCurrentSelectedColor(selectedColor);
                             handleBinClick?.(bin);
                           } else {
-                            setCurrentSelectedColor("");
-                            setCurrentSelectedBin("");
-                            handleBinClick?.("");
+                            setCurrentSelectedColor('');
+                            setCurrentSelectedBin('');
+                            handleBinClick?.('');
                           }
                         }}
-                        rx={"4.95"}
+                        rx="4.95"
                       />
                     )
                   );

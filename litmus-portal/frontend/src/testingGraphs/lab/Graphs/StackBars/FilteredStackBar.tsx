@@ -1,6 +1,6 @@
-import React from "react";
-import { BarStackChildProps } from "./base";
-import { PlotStackBar } from "./PlotStackBar";
+import React from 'react';
+import { BarStackChildProps } from './base';
+import { PlotStackBar } from './PlotStackBar';
 
 const FilteredStackBar: React.FC<BarStackChildProps> = ({
   openSeries,

@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from "@material-ui/core";
+import { makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   rectBase: {
@@ -7,15 +7,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   tooltipMetric: {
     zIndex: 3,
-    marginTop: "1rem",
-    padding: "1rem",
+    marginTop: '1rem',
+    padding: '1rem',
     backgroundColor: `${theme.palette.cards.background} !important`,
   },
   tooltipMetricLeft: {
-    transform: "translate(-75%,0)",
+    transform: 'translate(-75%,0)',
   },
   tooltipMetricRight: {
-    transform: "translate(75%,0)",
+    transform: 'translate(75%,0)',
   },
 }));
 

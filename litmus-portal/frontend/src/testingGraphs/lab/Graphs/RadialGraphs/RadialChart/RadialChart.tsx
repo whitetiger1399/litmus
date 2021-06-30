@@ -1,11 +1,11 @@
-import { useTheme } from "@material-ui/core";
-import { Arc, Group, ParentSize } from "@visx/visx";
-import React, { useEffect, useState } from "react";
-import { LegendData, LegendTable } from "../../LegendTable";
-import { RadialChartMetric, RadialGraphProps } from "../base";
-import { useStyles } from "./styles";
+import { useTheme } from '@material-ui/core';
+import { Arc, Group, ParentSize } from '@visx/visx';
+import React, { useEffect, useState } from 'react';
+import { LegendData, LegendTable } from '../../LegendTable';
+import { RadialChartMetric, RadialGraphProps } from '../base';
+import { useStyles } from './styles';
 
-export type LegendTableOrientation = "bottom" | "right" | undefined;
+export type LegendTableOrientation = 'bottom' | 'right' | undefined;
 
 export interface RadialChartProps extends RadialGraphProps {
   // Height of the Legent Table as number
@@ -44,29 +44,29 @@ const RadialChartChild = ({
   showLegend = true,
   heading,
   circleExpandOnHover = 5,
-  alignLegendTable = "bottom",
+  alignLegendTable = 'bottom',
   showCenterHeading = true,
-  unit = "",
+  unit = '',
   className,
 }: RadialChartChildProps) => {
   const { palette } = useTheme();
 
   let legendData: Array<LegendData> = [{ data: [] }];
-  const [centerValue, setcenterValue] = useState<string>("0");
-  const [centerText, setCenterText] = useState<string>(heading ?? "");
-  const [currentHovered, setcurrentHovered] = useState<string>("");
-  const radialFigureWidth = alignLegendTable === "bottom" ? width : width / 2;
+  const [centerValue, setcenterValue] = useState<string>('0');
+  const [centerText, setCenterText] = useState<string>(heading ?? '');
+  const [currentHovered, setcurrentHovered] = useState<string>('');
+  const radialFigureWidth = alignLegendTable === 'bottom' ? width : width / 2;
   const circleOrient = semiCircle ? 1 : 2;
   const scalerArc: number = circleOrient * Math.PI;
   const startAngle: number = -(Math.PI / 2);
   let currentAngle: number = startAngle;
-  if (showLegend && alignLegendTable === "bottom") {
+  if (showLegend && alignLegendTable === 'bottom') {
     height -= legendTableHeight;
   }
   let outerRadius = 0;
 
   if (circleOrient === 1) {
-    if (alignLegendTable === "bottom") {
+    if (alignLegendTable === 'bottom') {
       outerRadius = Math.min(radialFigureWidth, height) / 2;
     } else {
       outerRadius = Math.min(radialFigureWidth, height) / 2;
@@ -78,7 +78,7 @@ const RadialChartChild = ({
   const innerRadius = outerRadius - arcWidth - circleExpandOnHover;
   const classes = useStyles({
     width,
-    height: alignLegendTable === "bottom" ? height + legendTableHeight : height,
+    height: alignLegendTable === 'bottom' ? height + legendTableHeight : height,
     circleOrient,
     alignLegendTable,
     legendTableHeight,
@@ -101,11 +101,11 @@ const RadialChartChild = ({
           baseColor: elem.baseColor,
         };
       })
-    : [{ value: NaN, label: "" }];
-  if (centerValue === "0" && total > 0) {
+    : [{ value: NaN, label: '' }];
+  if (centerValue === '0' && total > 0) {
     setcenterValue(total.toString());
     if (showCenterHeading) {
-      setCenterText(heading ?? "");
+      setCenterText(heading ?? '');
     }
   }
   legendData = legendData.splice(0);
@@ -114,7 +114,7 @@ const RadialChartChild = ({
     radialData.map((element, index) => {
       if (element.value !== undefined)
         legendData[index] = {
-          data: [element.label ?? "", element.value.toString()],
+          data: [element.label ?? '', element.value.toString()],
           baseColor: element.baseColor,
         };
     });
@@ -124,7 +124,7 @@ const RadialChartChild = ({
     if (total > 0) {
       setcenterValue(total.toString());
       if (showCenterHeading) {
-        setCenterText(heading ?? "");
+        setCenterText(heading ?? '');
       }
     }
   }, [total]);
@@ -169,21 +169,21 @@ const RadialChartChild = ({
                     onMouseEnter={(e) => {
                       setcenterValue(radialData[i].value.toString());
                       if (showCenterHeading) {
-                        setCenterText(radialData[i].label?.toString() ?? "");
+                        setCenterText(radialData[i].label?.toString() ?? '');
                       }
                       setcurrentHovered(
-                        e.currentTarget.getAttribute("id")?.toString() ?? ""
+                        e.currentTarget.getAttribute('id')?.toString() ?? ''
                       );
                     }}
                     onMouseLeave={() => {
                       setcenterValue(total.toString());
                       if (showCenterHeading) {
-                        setCenterText(heading ?? "");
+                        setCenterText(heading ?? '');
                       }
-                      setcurrentHovered("");
+                      setcurrentHovered('');
                     }}
                     opacity={
-                      currentHovered === ""
+                      currentHovered === ''
                         ? 1
                         : currentHovered === `${elem.label}-arc`
                         ? 1

@@ -3,12 +3,12 @@ import {
   makeStyles,
   TableCell,
   Theme,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: theme.spacing(4.75)
+    marginTop: theme.spacing(4.75),
   },
 
   analyticsDiv: {

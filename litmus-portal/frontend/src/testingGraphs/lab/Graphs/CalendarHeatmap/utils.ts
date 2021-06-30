@@ -1,17 +1,17 @@
-const dayList = ["Sat", "Fri", "Thu", "Wed", "Tue", "Mon", "Sun"];
+const dayList = ['Sat', 'Fri', 'Thu', 'Wed', 'Tue', 'Mon', 'Sun'];
 const monthList = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 
 const getColorIndex = (value: number, valueThreshold: number[]) => {

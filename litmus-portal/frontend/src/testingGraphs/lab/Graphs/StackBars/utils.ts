@@ -1,12 +1,12 @@
-import { bisector } from "d3-array";
-import dayjs from "dayjs";
-import { BarDateValue, StackBarMetric } from "./base";
+import { bisector } from 'd3-array';
+import dayjs from 'dayjs';
+import { BarDateValue, StackBarMetric } from './base';
 
 const dateFormat = (date: number, xAxistimeFormat: string) => {
   return dayjs(new Date(date)).format(xAxistimeFormat);
 };
 const intToString = (value: number, unit: string) => {
-  let numValue = "";
+  let numValue = '';
   const shortValue = parseFloat(value.toPrecision(2));
   numValue = shortValue.toString();
 
@@ -19,52 +19,52 @@ const intToString = (value: number, unit: string) => {
 // Accessor functions
 const getBarDateNum = (d: StackBarMetric) => {
   if (d) {
-    if (typeof d.date === "number") {
+    if (typeof d.date === 'number') {
       return new Date(d.date);
-    } else return new Date(parseInt(d.date, 10));
-  } else {
-    return new Date(0);
+    }
+    return new Date(parseInt(d.date, 10));
   }
+  return new Date(0);
 };
 // Accessor functions
 const getLineDateNum = (d: BarDateValue) => {
   if (d) {
-    if (typeof d.date === "number") {
+    if (typeof d.date === 'number') {
       return new Date(d.date);
-    } else return new Date(parseInt(d.date, 10));
-  } else {
-    return new Date(0);
+    }
+    return new Date(parseInt(d.date, 10));
   }
+  return new Date(0);
 };
 
 const getDateNumber = (d: string | number) => {
   if (d) {
-    if (typeof d === "number") {
+    if (typeof d === 'number') {
       return d;
-    } else return parseInt(d, 10);
-  } else {
-    return 0;
+    }
+    return parseInt(d, 10);
   }
+  return 0;
 };
 
 const getValueNum = (d: BarDateValue) => {
   if (d) {
-    if (typeof d.value === "number") {
+    if (typeof d.value === 'number') {
       return d.value;
-    } else return parseInt(d.value, 10);
-  } else {
-    return NaN;
+    }
+    return parseInt(d.value, 10);
   }
+  return NaN;
 };
 
 const getValueStr = (d: BarDateValue) => {
   if (d) {
-    if (typeof d.value === "number") {
+    if (typeof d.value === 'number') {
       return d.value.toFixed(2).toString();
-    } else return d.value;
-  } else {
-    return "";
+    }
+    return d.value;
   }
+  return '';
 };
 
 // Bisectors

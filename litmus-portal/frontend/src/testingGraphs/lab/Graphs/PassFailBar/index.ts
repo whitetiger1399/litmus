@@ -1,1 +1,1 @@
-export * from "./PassFailBar";
+export * from './PassFailBar';

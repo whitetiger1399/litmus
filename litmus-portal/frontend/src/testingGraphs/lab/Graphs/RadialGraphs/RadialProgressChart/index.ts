@@ -1,1 +1,1 @@
-export * from "./RadialProgressChart";
+export * from './RadialProgressChart';

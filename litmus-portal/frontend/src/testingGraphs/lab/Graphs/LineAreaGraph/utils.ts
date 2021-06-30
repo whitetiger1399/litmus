@@ -1,5 +1,6 @@
 import { bisector } from 'd3-array';
-import { DateValue, ToolTipDateValue } from './base';
+import { DateValue } from '.';
+import { ToolTipDateValue } from './base';
 
 // Accessor functions
 const getDateNum = (d: DateValue) => {

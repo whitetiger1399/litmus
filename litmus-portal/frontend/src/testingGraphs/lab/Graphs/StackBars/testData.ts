@@ -1,8 +1,8 @@
-import { LineMetricSeries, StackBarMetric } from "./base";
+import { LineMetricSeries, StackBarMetric } from './base';
 
-const testHandleBarClick = (barData: any) => console.log("barId", barData);
+const testHandleBarClick = (barData: any) => console.log('barId', barData);
 const openSeries: LineMetricSeries = {
-  metricName: "probe success",
+  metricName: 'probe success',
   data: [
     { date: 100, value: 30 },
     { date: 110, value: 30 },
@@ -12,12 +12,12 @@ const openSeries: LineMetricSeries = {
     { date: 150, value: 30 },
     { date: 160, value: 10 },
   ],
-  baseColor: "#5469D4",
+  baseColor: '#5469D4',
 };
 
 const barData: StackBarMetric[] = [
   {
-    id: "1",
+    id: '1',
     date: 100,
     passPercentage: 80,
     failPercentage: 20,
@@ -25,7 +25,7 @@ const barData: StackBarMetric[] = [
     failCount: 20,
   },
   {
-    id: "2",
+    id: '2',
     date: 110,
     passPercentage: 60,
     failPercentage: 40,
@@ -33,7 +33,7 @@ const barData: StackBarMetric[] = [
     failCount: 1,
   },
   {
-    id: "3",
+    id: '3',
     date: 120,
     passPercentage: 60,
     failPercentage: 40,
@@ -41,7 +41,7 @@ const barData: StackBarMetric[] = [
     failCount: 1,
   },
   {
-    id: "4",
+    id: '4',
     date: 130,
     passPercentage: 60,
     failPercentage: 40,
@@ -49,7 +49,7 @@ const barData: StackBarMetric[] = [
     failCount: 1,
   },
   {
-    id: "5",
+    id: '5',
     date: 140,
     passPercentage: 10,
     failPercentage: 90,
@@ -57,7 +57,7 @@ const barData: StackBarMetric[] = [
     failCount: 1,
   },
   {
-    id: "6",
+    id: '6',
     date: 150,
     passPercentage: 40,
     failPercentage: 60,
@@ -65,7 +65,7 @@ const barData: StackBarMetric[] = [
     failCount: 1,
   },
   {
-    id: "7",
+    id: '7',
     date: 160,
     passPercentage: 10,
     failPercentage: 90,

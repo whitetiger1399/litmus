@@ -1,7 +1,7 @@
-import { ParentSize } from "@visx/visx";
-import React from "react";
-import { CalendarHeatMap } from "./base";
-import { ChildCalendarHeatmap } from "./ChildCalendarHeatmap";
+import { ParentSize } from '@visx/visx';
+import React from 'react';
+import { CalendarHeatMap } from './base';
+import { ChildCalendarHeatmap } from './ChildCalendarHeatmap';
 
 const CalendarHeatmap: React.FC<CalendarHeatMap> = ({ ...rest }) => {
   return (

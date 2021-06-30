@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from "@material-ui/core";
+import { makeStyles, Theme } from '@material-ui/core';
 
 interface StyleProps {
   width: number;
@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   singleBar: (props: StyleProps) => ({
     marginRight: theme.spacing(1),
-    borderRadius: "0.3rem 0 0 0.3rem",
+    borderRadius: '0.3rem 0 0 0.3rem',
     height: props.height / 2 - theme.spacing(1.18),
-    minWidth: "0.1rem",
+    minWidth: '0.1rem',
     marginTop: theme.spacing(1),
   }),
 
@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: theme.palette.error.main,
   }),
   barAndText: {
-    display: "flex",
+    display: 'flex',
   },
   text: {
-    top: "50%",
-    transform: "translate(0%, 25%)",
-    fontStyle: "normal",
-    fontFamily: "Ubuntu",
+    top: '50%',
+    transform: 'translate(0%, 25%)',
+    fontStyle: 'normal',
+    fontFamily: 'Ubuntu',
   },
   passText: {
     color: theme.palette.success.main,

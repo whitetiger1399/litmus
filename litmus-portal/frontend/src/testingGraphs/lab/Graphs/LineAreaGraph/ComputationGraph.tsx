@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
-/* eslint-disable import/no-cycle */
 import { useTheme } from '@material-ui/core';
 import { Bounds } from '@visx/brush/lib/types';
 import {
@@ -82,6 +82,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   showPoints = true,
   centralBrushPosition,
   handleCentralBrushPosition,
+  centralAllowGraphUpdate,
+  handleCentralAllowGraphUpdate,
   ...rest
 }) => {
   const { palette } = useTheme();
@@ -134,7 +136,9 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const [filteredEventSeries, setFilteredEventSeries] = useState(eventSeries);
   const [firstMouseEnterGraph, setMouseEnterGraph] = useState(false);
   const [dataRender, setAutoRender] = useState(true);
-  const [allowGraphUpdate, setAllowGraphUpdate] = useState(true);
+  const [allowGraphUpdate, setAllowGraphUpdate] = useState(
+    centralAllowGraphUpdate ?? true
+  );
 
   // Use for showing the tooltip when showMultiTooltip is disabled
   const [mouseY, setMouseY] = useState(0);
@@ -413,8 +417,16 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         },
       });
     }
-  }, [openSeries, closedSeries, eventSeries, allowGraphUpdate, brushDateScale]);
+  }, [allowGraphUpdate, brushDateScale, openSeries, closedSeries, eventSeries]);
 
+  useEffect(() => {
+    if (typeof centralAllowGraphUpdate === 'boolean') {
+      console.log('updateAllow');
+      setAllowGraphUpdate(centralAllowGraphUpdate);
+    }
+  }, [centralAllowGraphUpdate]);
+
+  console.log('allow:cen', allowGraphUpdate, centralAllowGraphUpdate);
   // Handle the change in the slider values
   const handleChangeSlider = (event: any, newValue: number | number[]) => {
     setAutoRender(false);
@@ -791,6 +803,8 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
   const onBrushChange = useCallback(
     (domain: Bounds | null) => {
       if (!domain) return;
+      setAllowGraphUpdate(false);
+      handleCentralAllowGraphUpdate?.(false);
       setAutoRender(false);
       const { x0, x1 } = domain;
       hideTooltip();
@@ -804,7 +818,6 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
         start: { x: x0 },
         end: { x: x1 },
       });
-      setAllowGraphUpdate(false);
     },
     [
       hideTooltip,
@@ -917,35 +930,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
     setFilteredOpenSeries(openSeries);
     setFilteredEventSeries(eventSeries);
   }
-  console.log(
-    'closed start:',
-    closedSeries && closedSeries[0]
-      ? `${closedSeries[0]?.data[0].date} ${
-          closedSeries[0]?.data[closedSeries[0].data.length - 1].date
-        } `
-      : 'nan'
-  );
 
-  console.log(
-    'brushScale',
-    new Date(brushDateScale.domain()[0]).getTime(),
-    ':',
-    new Date(brushDateScale.domain()[1]).getTime()
-  );
-  console.log(
-    'localBrushPosition',
-    localBrushPosition.start.x,
-    ':',
-    localBrushPosition.end.x
-  );
-  console.log(
-    'dateScale',
-    new Date(dateScale.domain()[0]).getTime(),
-    ':',
-    new Date(dateScale.domain()[1]).getTime()
-  );
-
-  console.log('filteredDate', filteredClosedSeries);
   return (
     <div
       onMouseLeave={() => hideTooltipDate()}
@@ -1011,6 +996,7 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
               onMouseMove={handleTooltip}
               onClick={() => {
                 setAllowGraphUpdate(true);
+                handleCentralAllowGraphUpdate?.(true);
                 setFilteredClosedSeries(closedSeries);
                 setFilteredOpenSeries(openSeries);
                 setFilteredEventSeries(eventSeries);
@@ -1021,14 +1007,12 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
                   },
                   end: { x: new Date(brushDateScale.domain()[1]).getTime() },
                 });
-                if (handleCentralBrushPosition) {
-                  handleCentralBrushPosition({
-                    start: {
-                      x: new Date(brushDateScale.domain()[0]).getTime(),
-                    },
-                    end: { x: new Date(brushDateScale.domain()[1]).getTime() },
-                  });
-                }
+                handleCentralBrushPosition?.({
+                  start: {
+                    x: new Date(brushDateScale.domain()[0]).getTime(),
+                  },
+                  end: { x: new Date(brushDateScale.domain()[1]).getTime() },
+                });
                 setAutoRender(true);
                 hideTooltip();
                 hideTooltipDate();

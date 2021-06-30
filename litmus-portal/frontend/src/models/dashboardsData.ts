@@ -101,14 +101,18 @@ export interface GraphPanelProps extends PanelResponse {
   controllerPanelID?: string;
   selectedApplications?: string[];
   centralBrushPosition?: BrushPostitionProps;
-  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
+  handleCentralBrushPosition: (newBrushPosition: BrushPostitionProps) => void;
+  centralAllowGraphUpdate: boolean;
+  handleCentralAllowGraphUpdate: (value: boolean) => void;
 }
 
 export interface GraphPanelGroupProps extends PanelGroupResponse {
   selectedPanels?: string[];
   selectedApplications?: string[];
   centralBrushPosition?: BrushPostitionProps;
-  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
+  handleCentralBrushPosition: (newBrushPosition: BrushPostitionProps) => void;
+  centralAllowGraphUpdate: boolean;
+  handleCentralAllowGraphUpdate: (value: boolean) => void;
 }
 
 export interface ParsedPrometheusData {

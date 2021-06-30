@@ -1,18 +1,18 @@
-import { useTheme } from "@material-ui/core";
-import { AxisBottom } from "@visx/axis";
-import { Grid } from "@visx/grid";
-import { Group } from "@visx/group";
-import { scaleBand, scaleLinear, scaleOrdinal, scaleTime } from "@visx/scale";
-import { BarStack } from "@visx/shape";
-import { useTooltip } from "@visx/tooltip";
+import { useTheme } from '@material-ui/core';
+import { AxisBottom } from '@visx/axis';
+import { Grid } from '@visx/grid';
+import { Group } from '@visx/group';
+import { scaleBand, scaleLinear, scaleOrdinal, scaleTime } from '@visx/scale';
+import { BarStack } from '@visx/shape';
+import { useTooltip } from '@visx/tooltip';
 import {
   AxisLeft,
   curveMonotoneX,
   LinePath,
   localPoint,
   Tooltip,
-} from "@visx/visx";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+} from '@visx/visx';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   BarDateValue,
   BarStackChildProps,
@@ -20,8 +20,8 @@ import {
   StackBarTooltipProps,
   TooltipData,
   ToolTipDateValue,
-} from "./base";
-import { useStyles } from "./styles";
+} from './base';
+import { useStyles } from './styles';
 import {
   bisectBarDate,
   bisectLineDate,
@@ -32,12 +32,12 @@ import {
   getValueNum,
   getValueStr,
   intToString,
-} from "./utils";
+} from './utils';
 
-type StackName = "passPercentage" | "failPercentage";
+type StackName = 'passPercentage' | 'failPercentage';
 
 const defaultMargin = { top: 20, right: 50, bottom: 30, left: 80 };
-const keys: StackName[] = ["passPercentage", "failPercentage"];
+const keys: StackName[] = ['passPercentage', 'failPercentage'];
 
 // accessors
 const getDateStr = (d: StackBarMetric) => d.date.toString();
@@ -49,9 +49,9 @@ const PlotStackBar = ({
   height,
   initialxAxisDate,
   margin = defaultMargin,
-  xAxistimeFormat = "MMM D,YYYY ",
-  unit = "%",
-  yLabel = "",
+  xAxistimeFormat = 'MMM D,YYYY ',
+  unit = '%',
+  yLabel = '',
   yLabelOffset = 0,
   handleBarClick,
   barSeries,
@@ -62,7 +62,7 @@ const PlotStackBar = ({
         {tooltipData.map((linedata, index) => (
           <div
             key={`tooltipName-value- ${linedata.metricName}-${index}`}
-            style={{ lineHeight: "1.3rem" }}
+            style={{ lineHeight: '1.3rem' }}
           >
             <span>{`${linedata.metricName} ${getValueStr(
               linedata.data
@@ -87,8 +87,9 @@ const PlotStackBar = ({
     height,
   });
   const { palette } = useTheme();
-  const [currentSelectedBar, setCurrentSelectedBar] =
-    useState<number | undefined>();
+  const [currentSelectedBar, setCurrentSelectedBar] = useState<
+    number | undefined
+  >();
 
   const colorScale = scaleOrdinal<StackName, string>({
     domain: keys,
@@ -103,26 +104,26 @@ const PlotStackBar = ({
     padding: 0.5,
   });
   const axisLeftTickLabelProps = {
-    dy: "0.3rem",
-    dx: "-0.3rem",
+    dy: '0.3rem',
+    dx: '-0.3rem',
     fontWeight: 400,
-    fontSize: "10px",
-    textAnchor: "end" as const,
-    lineHeight: "12px",
+    fontSize: '10px',
+    textAnchor: 'end' as const,
+    lineHeight: '12px',
     fill: palette.text.hint,
   };
   const axisBottomTickLabelProps = {
-    dy: "0.3rem",
-    textAnchor: "middle" as const,
-    fontSize: "12px",
+    dy: '0.3rem',
+    textAnchor: 'middle' as const,
+    fontSize: '12px',
     fontWeight: 400,
     fill: palette.text.hint,
-    lineHeight: "12px",
+    lineHeight: '12px',
   };
   const yLabelProps = {
     fontWeight: 700,
-    fontSize: "12px",
-    lineHeight: "12px",
+    fontSize: '12px',
+    lineHeight: '12px',
     color: palette.text.hint,
     fill: palette.text.hint,
   };
@@ -218,18 +219,18 @@ const PlotStackBar = ({
     ) => {
       let pointerDataSelection: ToolTipDateValue[] = [
         {
-          metricName: "",
+          metricName: '',
           data: {
             date: NaN,
             value: NaN,
           },
-          baseColor: "",
+          baseColor: '',
         },
       ];
       let { x } = localPoint(event) || { x: 0 };
       x -= margin.left;
       const x0 = xScale.invert(x);
-      console.log("x0", new Date(x0).getTime());
+      console.log('x0', new Date(x0).getTime());
 
       let i = 0;
       pointerDataSelection.slice(0);
@@ -244,7 +245,7 @@ const PlotStackBar = ({
             x0.valueOf() - getLineDateNum(dd0).valueOf() >
               getLineDateNum(dd1).valueOf() - x0.valueOf()
               ? {
-                  metricName: "resiliencyScore",
+                  metricName: 'resiliencyScore',
                   data: {
                     date: dd1.date,
                     value: dd1.value,
@@ -253,7 +254,7 @@ const PlotStackBar = ({
                     openSeries.baseColor ?? palette.status.experiment.running,
                 }
               : {
-                  metricName: "resiliencyScore",
+                  metricName: 'resiliencyScore',
                   data: {
                     date: dd0.date,
                     value: dd0.value,
@@ -275,22 +276,22 @@ const PlotStackBar = ({
             x0.valueOf() - getBarDateNum(dd0).valueOf() >
               getBarDateNum(dd1).valueOf() - x0.valueOf()
               ? {
-                  metricName: "passCount",
+                  metricName: 'passCount',
                   data: {
                     date: dd1.date,
                     id: dd1.id,
                     value: dd1.passCount,
                   },
-                  baseColor: "red",
+                  baseColor: 'red',
                 }
               : {
-                  metricName: "passCount",
+                  metricName: 'passCount',
                   data: {
                     date: dd0.date,
                     id: dd0.id,
                     value: dd0.passCount,
                   },
-                  baseColor: "red",
+                  baseColor: 'red',
                 };
           i++;
         }
@@ -301,22 +302,22 @@ const PlotStackBar = ({
             x0.valueOf() - getBarDateNum(dd0).valueOf() >
               getBarDateNum(dd1).valueOf() - x0.valueOf()
               ? {
-                  metricName: "failCount",
+                  metricName: 'failCount',
                   data: {
                     date: dd1.date,
                     id: dd1.id,
                     value: dd1.failCount,
                   },
-                  baseColor: "red",
+                  baseColor: 'red',
                 }
               : {
-                  metricName: "failCount",
+                  metricName: 'failCount',
                   data: {
                     date: dd0.date,
                     id: dd0.id,
                     value: dd0.failCount,
                   },
-                  baseColor: "red",
+                  baseColor: 'red',
                 };
           i++;
         }
@@ -363,16 +364,9 @@ const PlotStackBar = ({
   if (width < 10) return null;
 
   return width < 10 ? null : (
-    <div style={{ position: "relative", margin: "1rem" }}>
+    <div style={{ position: 'relative', margin: '1rem' }}>
       <svg width={width} height={height} onMouseLeave={() => hideTooltip()}>
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill={"white"}
-          rx={14}
-        />
+        <rect x={0} y={0} width={width} height={height} fill="white" rx={14} />
         <defs>
           <filter id="inset" x="-50%" y="-50%" width="200%" height="200%">
             <feFlood
@@ -531,7 +525,7 @@ const PlotStackBar = ({
             width={xMax}
             height={yMax}
             onMouseMove={handleTooltip}
-            fill={"transparent"}
+            fill="transparent"
             onClick={() => {
               if (
                 tooltipData &&
@@ -548,7 +542,7 @@ const PlotStackBar = ({
                 );
               } else {
                 setCurrentSelectedBar(undefined);
-                handleBarClick?.("");
+                handleBarClick?.('');
               }
             }}
           />

@@ -3,5 +3,5 @@ export type {
   DateValue,
   GraphMetric,
   StrictColorGraphMetric,
-} from "./base";
-export * from "./LineAreaGraph";
+} from './base';
+export * from './LineAreaGraph';
