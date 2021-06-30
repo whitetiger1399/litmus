@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { useTheme } from '@material-ui/core';
 import {
   AreaClosed,

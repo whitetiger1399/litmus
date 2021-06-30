@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { useTheme } from '@material-ui/core';
 import { ParentSize } from '@visx/visx';
 import React from 'react';

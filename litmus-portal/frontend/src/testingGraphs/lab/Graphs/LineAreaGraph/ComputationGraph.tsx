@@ -1,5 +1,7 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-console */
+/* eslint-disable import/no-cycle */
 import { useTheme } from '@material-ui/core';
 import { Bounds } from '@visx/brush/lib/types';
 import {
@@ -421,12 +423,10 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
 
   useEffect(() => {
     if (typeof centralAllowGraphUpdate === 'boolean') {
-      console.log('updateAllow');
       setAllowGraphUpdate(centralAllowGraphUpdate);
     }
   }, [centralAllowGraphUpdate]);
 
-  console.log('allow:cen', allowGraphUpdate, centralAllowGraphUpdate);
   // Handle the change in the slider values
   const handleChangeSlider = (event: any, newValue: number | number[]) => {
     setAutoRender(false);
@@ -820,10 +820,11 @@ const ComputationGraph: React.FC<LineAreaGraphChildProps> = ({
       });
     },
     [
+      handleCentralAllowGraphUpdate,
       hideTooltip,
       hideTooltipDate,
-      filterAllDateWithNewDomain,
       updateLocalBrushPosition,
+      filterAllDateWithNewDomain,
     ]
   );
 
