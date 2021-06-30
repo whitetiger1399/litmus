@@ -6,6 +6,7 @@ import { Accordion } from '../../../../components/Accordion';
 import { PanelResponse } from '../../../../models/graphql/dashboardsDetails';
 import { ReactComponent as ExpandAccordion } from '../../../../svg/expandAccordion.svg';
 import { ReactComponent as ShrinkAccordion } from '../../../../svg/shrinkAccordion.svg';
+import { BrushPostitionProps } from '../../../../testingGraphs/lab/Graphs/LineAreaGraph';
 import GraphPanel from './GraphPanel';
 import useStyles from './styles';
 
@@ -15,6 +16,8 @@ interface DashboardPanelGroupContentProps {
   panel_group_id: string;
   selectedPanels?: string[];
   selectedApplications?: string[];
+  centralBrushPosition?: BrushPostitionProps;
+  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
 }
 
 const DashboardPanelGroupContent: React.FC<DashboardPanelGroupContentProps> = ({
@@ -23,6 +26,8 @@ const DashboardPanelGroupContent: React.FC<DashboardPanelGroupContentProps> = ({
   panel_group_name,
   selectedPanels,
   selectedApplications,
+  centralBrushPosition,
+  handleCentralBrushPosition,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(true);
@@ -54,6 +59,8 @@ const DashboardPanelGroupContent: React.FC<DashboardPanelGroupContentProps> = ({
               .map((panel: PanelResponse) => (
                 <GraphPanel
                   key={panel.panel_id}
+                  centralBrushPosition={centralBrushPosition}
+                  handleCentralBrushPosition={handleCentralBrushPosition}
                   data-cy="dashboardPanel"
                   panel_id={panel.panel_id}
                   created_at={panel.created_at}

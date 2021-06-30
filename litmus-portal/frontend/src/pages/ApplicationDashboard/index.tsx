@@ -27,6 +27,7 @@ import useActions from '../../redux/actions';
 import * as DashboardActions from '../../redux/actions/dashboards';
 import * as DataSourceActions from '../../redux/actions/dataSource';
 import { RootState } from '../../redux/reducers';
+import { BrushPostitionProps } from '../../testingGraphs/lab/Graphs/LineAreaGraph';
 import { getProjectID } from '../../utils/getSearchParams';
 import ChaosAccordion from '../../views/Analytics/ApplicationDashboard/ChaosAccordion';
 import DataSourceInactiveModal from '../../views/Analytics/ApplicationDashboard/DataSourceInactiveModal';
@@ -50,30 +51,27 @@ const DashboardPage: React.FC = () => {
     (state: RootState) => state.selectDataSource
   );
 
-  const [
-    selectedDashboardInformation,
-    setSelectedDashboardInformation,
-  ] = React.useState<SelectedDashboardInformation>({
-    id: selectedDashboard.selectedDashboardID ?? '',
-    name: '',
-    typeName: '',
-    typeID: '',
-    agentID: '',
-    agentName: '',
-    urlToIcon: '',
-    information: '',
-    chaosEventQueryTemplate: '',
-    chaosVerdictQueryTemplate: '',
-    applicationMetadataMap: [],
-    dashboardListForAgent: [],
-    metaData: [],
-    dashboardKey: 'Default',
-    panelNameAndIDList: [],
-  });
+  const [selectedDashboardInformation, setSelectedDashboardInformation] =
+    React.useState<SelectedDashboardInformation>({
+      id: selectedDashboard.selectedDashboardID ?? '',
+      name: '',
+      typeName: '',
+      typeID: '',
+      agentID: '',
+      agentName: '',
+      urlToIcon: '',
+      information: '',
+      chaosEventQueryTemplate: '',
+      chaosVerdictQueryTemplate: '',
+      applicationMetadataMap: [],
+      dashboardListForAgent: [],
+      metaData: [],
+      dashboardKey: 'Default',
+      panelNameAndIDList: [],
+    });
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [dataSourceStatus, setDataSourceStatus] = React.useState<string>(
-    'ACTIVE'
-  );
+  const [dataSourceStatus, setDataSourceStatus] =
+    React.useState<string>('ACTIVE');
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -81,6 +79,8 @@ const DashboardPage: React.FC = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [centralBrushPosition, setCentralBrushPosition] =
+    React.useState<BrushPostitionProps>();
   const [isInfoOpen, setIsInfoOpen] = React.useState<Boolean>(false);
   const [selectedPanels, setSelectedPanels] = React.useState<string[]>([]);
   const [selectedApplications, setSelectedApplications] = React.useState<
@@ -113,11 +113,10 @@ const DashboardPage: React.FC = () => {
         selectedDashboardInformation.id !==
         selectedDashboardInformation.dashboardKey
       ) {
-        const selectedDashboard: ListDashboardResponse = dashboards.ListDashboard.filter(
-          (data) => {
+        const selectedDashboard: ListDashboardResponse =
+          dashboards.ListDashboard.filter((data) => {
             return data.db_id === selectedDashboardInformation.id;
-          }
-        )[0];
+          })[0];
         const selectedPanelNameAndIDList: PanelNameAndID[] = [];
         if (selectedDashboard) {
           (selectedDashboard.panel_groups ?? []).forEach(
@@ -175,13 +174,12 @@ const DashboardPage: React.FC = () => {
           selectedDashboardInformation.metaData[0] &&
           dataSources.ListDataSource
         ) {
-          const selectedDataSource: ListDataSourceResponse = dataSources.ListDataSource.filter(
-            (data) => {
+          const selectedDataSource: ListDataSourceResponse =
+            dataSources.ListDataSource.filter((data) => {
               return (
                 data.ds_id === selectedDashboardInformation.metaData[0].ds_id
               );
-            }
-          )[0];
+            })[0];
           if (selectedDataSource) {
             dataSource.selectDataSource({
               selectedDataSourceURL: selectedDataSource.ds_url,
@@ -341,6 +339,10 @@ const DashboardPage: React.FC = () => {
                     data-cy="dashboardPanelGroup"
                   >
                     <DashboardPanelGroup
+                      centralBrushPosition={centralBrushPosition}
+                      handleCentralBrushPosition={(
+                        newBrushPosition: BrushPostitionProps
+                      ) => setCentralBrushPosition(newBrushPosition)}
                       key={`${panelGroup.panel_group_id}-dashboardPage-component`}
                       panel_group_id={panelGroup.panel_group_id}
                       panel_group_name={panelGroup.panel_group_name}

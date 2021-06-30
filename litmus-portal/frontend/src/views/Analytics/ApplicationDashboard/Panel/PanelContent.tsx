@@ -1,7 +1,7 @@
 import { ApolloError, useQuery } from '@apollo/client';
 import { IconButton, Typography } from '@material-ui/core';
 import useTheme from '@material-ui/core/styles/useTheme';
-import { ButtonOutlined, LineAreaGraph, Modal } from 'litmus-ui';
+import { ButtonOutlined, Modal } from 'litmus-ui';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +34,7 @@ import { ReactComponent as ViewChaosMetric } from '../../../../svg/aligment.svg'
 import { ReactComponent as DisableViewChaosMetric } from '../../../../svg/alignmentStriked.svg';
 import { ReactComponent as Expand } from '../../../../svg/arrowsOut.svg';
 import { ReactComponent as Edit } from '../../../../svg/edit.svg';
+import { LineAreaGraph } from '../../../../testingGraphs/lab/Graphs';
 import {
   getProjectID,
   getProjectRole,
@@ -58,6 +59,8 @@ const PanelContent: React.FC<GraphPanelProps> = ({
   className,
   controllerPanelID,
   selectedApplications,
+  centralBrushPosition,
+  handleCentralBrushPosition,
 }) => {
   const { palette } = useTheme();
   const classes = useStyles();
@@ -70,20 +73,18 @@ const PanelContent: React.FC<GraphPanelProps> = ({
   const areaGraph: string[] = palette.graph.area;
   const [popOut, setPopOut] = useState(false);
   const [viewEventMetric, setViewEventMetric] = useState(false);
-  const [
-    prometheusQueryData,
-    setPrometheusQueryData,
-  ] = React.useState<PrometheusQueryDataInterface>({
-    promInput: {
-      ds_details: {
-        url: '',
-        start: '',
-        end: '',
+  const [prometheusQueryData, setPrometheusQueryData] =
+    React.useState<PrometheusQueryDataInterface>({
+      promInput: {
+        ds_details: {
+          url: '',
+          start: '',
+          end: '',
+        },
+        queries: [],
       },
-      queries: [],
-    },
-    firstLoad: true,
-  });
+      firstLoad: true,
+    });
 
   const [graphData, setGraphData] = React.useState<ParsedPrometheusData>({
     seriesData: [],
@@ -365,7 +366,7 @@ const PanelContent: React.FC<GraphPanelProps> = ({
               showPoints={false}
               showLegendTable
               showEventTable
-              showTips={false}
+              showTips
               showEventMarkers
               marginLeftEventTable={10}
               unit={unit}
@@ -378,6 +379,8 @@ const PanelContent: React.FC<GraphPanelProps> = ({
       </div>
       <div className={classes.singleGraph}>
         <LineAreaGraph
+          centralBrushPosition={centralBrushPosition}
+          handleCentralBrushPosition={handleCentralBrushPosition}
           legendTableHeight={120}
           openSeries={graphData.seriesData}
           closedSeries={graphData.closedAreaData}
@@ -385,7 +388,7 @@ const PanelContent: React.FC<GraphPanelProps> = ({
           showPoints={false}
           showEventTable={viewEventMetric}
           showLegendTable
-          showTips={false}
+          showTips
           showEventMarkers
           unit={unit}
           yLabel={y_axis_left}

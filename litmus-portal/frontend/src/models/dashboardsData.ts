@@ -1,4 +1,5 @@
 import { GraphMetric } from 'litmus-ui';
+import { BrushPostitionProps } from '../testingGraphs/lab/Graphs/LineAreaGraph/base';
 import {
   ApplicationMetadata,
   ListDashboardResponse,
@@ -99,11 +100,15 @@ export interface GraphPanelProps extends PanelResponse {
   className?: string;
   controllerPanelID?: string;
   selectedApplications?: string[];
+  centralBrushPosition?: BrushPostitionProps;
+  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
 }
 
 export interface GraphPanelGroupProps extends PanelGroupResponse {
   selectedPanels?: string[];
   selectedApplications?: string[];
+  centralBrushPosition?: BrushPostitionProps;
+  handleCentralBrushPosition?: (newBrushPosition: BrushPostitionProps) => void;
 }
 
 export interface ParsedPrometheusData {

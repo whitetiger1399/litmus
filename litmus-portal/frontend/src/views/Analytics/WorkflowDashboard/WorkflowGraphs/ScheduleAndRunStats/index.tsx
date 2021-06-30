@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
 import { Paper, Tabs, useTheme } from '@material-ui/core';
-import { GraphMetric, LineAreaGraph } from 'litmus-ui';
 import React from 'react';
 import { StyledTab } from '../../../../../components/Tabs';
 import { WORKFLOW_STATS } from '../../../../../graphql';
@@ -9,6 +8,7 @@ import {
   WorkflowStatsResponse,
   WorkflowStatsVars,
 } from '../../../../../models/graphql/workflowStats';
+import { GraphMetric, LineAreaGraph } from '../../../../../testingGraphs/lab';
 import { getProjectID } from '../../../../../utils/getSearchParams';
 import useStyles from './style';
 
